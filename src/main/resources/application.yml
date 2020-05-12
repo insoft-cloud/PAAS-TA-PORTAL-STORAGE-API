@@ -1,0 +1,91 @@
+# Spring properties
+spring:
+  application:
+    name: PortalStorageApi  # Service registers under this name
+  security:
+    username: admin
+    password: openpaasta
+  http:    # spring boot 1.x
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+      location: ${java.io.tmpdir}
+  servlet:    # spring boot 2.x
+    multipart:
+      enabled: ${spring.http.multipart.enabled}
+      max-file-size: ${spring.http.multipart.max-file-size}
+      max-request-size: ${spring.http.multipart.max-request-size}
+      location: ${spring.http.multipart.location}
+
+
+# HTTP Server
+server:
+  port: ${PORT:2226}   # HTTP (Tomcat) port
+
+logging:
+  level:
+    ROOT: DEBUG
+#Hystrix Setting(current version not used)
+#hystrix:
+#  threadpool:
+#    default:
+#      # Maximum number of concurrent requests when using thread pools (Default: 10)
+#      coreSize: 100
+#      # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+#      maxQueueSize: -1
+#      # Queue size rejection threshold (Default: 5)
+#      queueSizeRejectionThreshold: 5
+#  command:
+#    default:
+#      circuitBreaker:
+#        sleepWindowInMilliseconds: 60000
+#        requestVolumeThreshold: 3
+#      execution:
+#        isolation:
+#          #strategy: SEMAPHORE, no thread pool but timeout handling stops to work
+#          strategy: THREAD
+#          thread:
+#            timeoutInMilliseconds: 60000
+#
+---
+spring:
+  profiles: local
+
+objectStorage:
+  swift:
+    tenantName: paasta-portal
+    username: paasta-portal # YOUR OBJECT STORAGE ACCOUNT
+    password: 'PASSWORD' # YOUR OBJECT STORAGE PASSWORD
+    authUrl: http://XXX.XXX.XXX.XXX:5000/v2.0/tokens  #YOUR OBJECT STORAGE API URL
+    authMethod: keystone
+    preferredRegion: Public
+    container: portal-container
+
+paasta:
+  portal:
+    storage:
+      api:
+        common:
+          countoflastestexception: 10
+
+---
+spring:
+  profiles: dev
+
+objectStorage:
+  swift:
+    tenantName: paasta-portal
+    username: paasta-portal  # YOUR OBJECT STORAGE ACCOUNT
+    password: 'PASSWORD' # YOUR OBJECT STORAGE PASSWORD
+    authUrl: http://XXX.XXX.XXX.XXX:5000/v2.0/tokens  #YOUR OBJECT STORAGE API URL
+    authMethod: keystone
+    preferredRegion: Public
+    container: portal-container
+
+paasta:
+  portal:
+    storage:
+      api:
+        common:
+          countoflastestexception: 10

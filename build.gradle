@@ -1,0 +1,81 @@
+    buildscript {
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+ext {
+    springBootVersion = '1.5.10.RELEASE'
+    springCloudVersion = 'Edgware.RELEASE'
+    springBootAdminVersion = '1.5.7'
+    jossVersion = '0.10.3'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'jacoco'
+
+
+jar {
+    baseName = 'paas-ta-portal-storage-api'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+def defaultEncoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+
+dependencies {
+    //Server Security
+    compile ('org.springframework.boot:spring-boot-starter-security')
+    //Admin Server Setting
+//    compile ("de.codecentric:spring-boot-admin-starter-client:${springBootAdminVersion}")
+    //Config Server Setting
+//    compile('org.springframework.cloud:spring-cloud-starter-config')
+    //Eureka
+    compile ('org.springframework.cloud:spring-cloud-starter-eureka')
+    //Java Client for OpenStack Storage
+    compile ("org.javaswift:joss:${jossVersion}")
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-jersey'
+
+
+    //hystrix
+//    compile('org.springframework.cloud:spring-cloud-starter-hystrix:1.4.4.RELEASE')
+//    compile('org.springframework.boot:spring-boot-starter-actuator')
+
+    compile('junit:junit:4.12')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+jacoco {
+    toolVersion = "0.7.9+"
+}
+
+test {
+    ignoreFailures=true
+    jacoco {
+        destinationFile = file("$buildDir/jacoco/jacoco-overall.exec")
+    }
+}
+
