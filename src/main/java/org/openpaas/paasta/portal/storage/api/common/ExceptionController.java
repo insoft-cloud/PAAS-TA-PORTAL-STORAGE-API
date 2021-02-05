@@ -9,8 +9,7 @@ import java.util.Locale;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.annotation.PostConstruct;
-
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.openpaas.paasta.portal.storage.api.common.ExceptionService.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,10 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Exception Handler for unexpected situation
- * 
- * @author hgcho (Hyungu Cho)
- * @version 
- * @since 2018. 4. 2.
  *
  */
 @ControllerAdvice

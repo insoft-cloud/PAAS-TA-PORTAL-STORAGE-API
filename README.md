@@ -1,7 +1,7 @@
 # PAAS-TA-PORTAL-STORAGE-API
 
 ## Storage Api Service
-Storage Api Service? Object Storage에 파일 업로드 및 다운로드를 제공하는 기능을 제공하기 위해
+Object Storage에 파일 업로드 및 다운로드를 제공하는 기능을 제공하기 위해
 별도의 API 서비스로 분리하여, 개발된 서비스이다.
 현재는 Swift Object Storage를 지원하고 있다.
 
@@ -22,8 +22,9 @@ Storage Api Service? Object Storage에 파일 업로드 및 다운로드를 제�
 
 
 ## 유의사항
-- Java 1.8 버전
-- Spring Cloud Edgware.RELEASE 
+- Java 1.8 
+- Gradle 6.7
+- Spring-boot 2.4.2
 - Tomcat Embedded 8.5.14
-- Gradle 4.4.1
-- Spring-boot 1.5.9
+- Spring-Cloud 2020.0.0
+
