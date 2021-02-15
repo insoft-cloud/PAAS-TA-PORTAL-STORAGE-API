@@ -26,7 +26,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 jar {
-    baseName = 'paas-ta-portal-storage-api'
+    archivesBaseName = 'paas-ta-portal-storage-api'
 }
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
