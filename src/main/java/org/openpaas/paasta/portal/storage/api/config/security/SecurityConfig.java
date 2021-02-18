@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         LOGGER.info("User : {} / Password : {}", username, password);
         auth.inMemoryAuthentication()
                 /* .passwordEncoder( passwordEncoder() ) */
-                .withUser(username).password(password).roles("USER");
+                .withUser(username).password(passwordEncoder().encode(password)).roles("USER");
     }
 
     @Bean
