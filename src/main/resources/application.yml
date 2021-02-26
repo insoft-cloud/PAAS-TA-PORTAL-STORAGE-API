@@ -4,18 +4,12 @@ spring:
   security:
     username: admin
     password: openpaasta
-    http:
-      multipart:
-        enabled: true
-        max-file-size: 1024MB
-        max-request-size: 1024MB
-        location: ${java.io.tmpdir}
-    servlet:
-      multipart:
-        enabled: ${spring.http.multipart.enabled}
-        max-file-size: ${spring.http.multipart.max-file-size}
-        max-request-size: ${spring.http.multipart.max-request-size}
-        location: ${spring.http.multipart.location}
+  servlet:     # spring boot 2.x
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+      location: ${java.io.tmpdir}
 management:
   security:
     enabled: false
@@ -25,34 +19,18 @@ management:
 server:
   port: ${PORT:2226}   # HTTP (Tomcat) port
 
-logging:
-  level:
-    ROOT: DEBUG
-#Hystrix Setting(current version not used)
-#hystrix:
-#  threadpool:
-#    default:
-#      # Maximum number of concurrent requests when using thread pools (Default: 10)
-#      coreSize: 100
-#      # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
-#      maxQueueSize: -1
-#      # Queue size rejection threshold (Default: 5)
-#      queueSizeRejectionThreshold: 5
-#  command:
-#    default:
-#      circuitBreaker:
-#        sleepWindowInMilliseconds: 60000
-#        requestVolumeThreshold: 3
-#      execution:
-#        isolation:
-#          #strategy: SEMAPHORE, no thread pool but timeout handling stops to work
-#          strategy: THREAD
-#          thread:
-#            timeoutInMilliseconds: 60000
-#
----
-spring:
-  profiles: local
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:2221/eureka/
+      registry-fetch-interval-seconds: 5
+  instance:
+    hostname: ${spring.cloud.client.hostname}
+    preferIpAddress: true
+    lease-expiration-duration-in-seconds: 5
+    lease-renewal-interval-in-seconds: 10
+
 
 objectStorage:
   swift:
