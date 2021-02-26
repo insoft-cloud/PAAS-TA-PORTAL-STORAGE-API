@@ -203,7 +203,7 @@ public class SwiftOSController {
         
         if (null == headers) {
             headers = new HttpHeaders();
-            headers.add( "Content-Type", MediaType.TEXT_PLAIN_VALUE );
+            headers.add( "Content-Type", MediaType.APPLICATION_JSON_VALUE);
             // This header works only for script or css
             headers.add( "X-Content-Type-Options", "nosniff" );
         }
