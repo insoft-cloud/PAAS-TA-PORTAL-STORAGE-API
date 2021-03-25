@@ -14,7 +14,6 @@ management:
   security:
     enabled: false
 
-
 # HTTP Server
 server:
   port: ${PORT:2226}   # HTTP (Tomcat) port
@@ -30,7 +29,6 @@ eureka:
     preferIpAddress: true
     lease-expiration-duration-in-seconds: 5
     lease-renewal-interval-in-seconds: 10
-
 
 objectStorage:
   swift:
